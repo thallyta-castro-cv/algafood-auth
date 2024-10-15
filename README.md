@@ -63,6 +63,7 @@ O projeto é composto pelos seguintes módulos:
 ## Endpoints
 
 - `/oauth/token`: Endpoint para obtenção de tokens de acesso.
+- `/oauth/check_token`: Verificação de tokens (usado pelo Resource Server para validar o token).
 
 ### Exemplo de Requisição para Obtenção de Token
 
