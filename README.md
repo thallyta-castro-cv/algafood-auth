@@ -63,6 +63,7 @@ O projeto é composto pelos seguintes módulos:
 ## Endpoints Disponíveis
 
 ### 1. Password Flow
+![Password Flow](./password_flow.png)
 O **Password Flow** permite que um cliente obtenha um token de acesso usando as credenciais do usuário (login e senha). Este fluxo é ideal para clientes que podem confiar nas credenciais do usuário, como uma aplicação web.
 
 - **Endpoint**: `/oauth/token`
@@ -89,7 +90,7 @@ client_secret=web123
 Um token JWT que pode ser usado para acessar recursos protegidos.
 
 ### 2. Refresh Token
-
+![Refresh token](./refresh-token.png)
 O **Refresh Token Flow** permite que o cliente obtenha um novo token de acesso sem a necessidade de re-autenticar o usuário. Esse fluxo é utilizado quando o token de acesso atual expira.
 
 - **Endpoint**: `/oauth/token`
