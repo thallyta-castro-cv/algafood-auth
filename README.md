@@ -60,19 +60,84 @@ O projeto é composto pelos seguintes módulos:
    ```
 2. A aplicação será iniciada em http://localhost:8081.
 
-## Endpoints
+## Endpoints Disponíveis
 
-- `/oauth/token`: Endpoint para obtenção de tokens de acesso.
-- `/oauth/check_token`: Verificação de tokens (usado pelo Resource Server para validar o token).
+### 1. Password Flow
+O **Password Flow** permite que um cliente obtenha um token de acesso usando as credenciais do usuário (login e senha). Este fluxo é ideal para clientes que podem confiar nas credenciais do usuário, como uma aplicação web.
 
-### Exemplo de Requisição para Obtenção de Token
+- **Endpoint**: `/oauth/token`
+- **Método**: `POST`
+- **Parâmetros**:
+  - `grant_type`: `password`
+  - `username`: O nome de usuário do usuário.
+  - `password`: A senha do usuário.
+  - `client_id`: O ID do cliente registrado no servidor de autorização.
+  - `client_secret`: O segredo do cliente.
 
+#### Exemplo de requisição (Postman):
 ```bash
-curl -X POST \
-  http://localhost:8080/oauth/token \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d 'grant_type=password&username=admin&password=admin&client_id=algafood-client&client_secret=algafood-secret'
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password
+username=<seu_username>
+password=<sua_senha>
+client_id=algafood-web
+client_secret=web123
 ```
+#### Resposta:
+Um token JWT que pode ser usado para acessar recursos protegidos.
+
+### 2. Refresh Token
+
+O **Refresh Token Flow** permite que o cliente obtenha um novo token de acesso sem a necessidade de re-autenticar o usuário. Esse fluxo é utilizado quando o token de acesso atual expira.
+
+- **Endpoint**: `/oauth/token`
+- **Método**: `POST`
+- **Parâmetros**:
+  - `grant_type`: `refresh_token`
+  - `refresh_token`: O refresh token que foi retornado anteriormente.
+  - `client_id`: O ID do cliente.
+  - `client_secret`: O segredo do cliente.
+
+#### Exemplo de requisição (Postman):
+```bash
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token
+refresh_token=<seu_refresh_token>
+client_id=algafood-web
+client_secret=web123
+```
+
+#### Resposta:
+Um novo token JWT válido por um período de tempo.
+
+### 3. Client Credentials Flow
+
+O Client Credentials Flow permite que o cliente obtenha um token de acesso usando suas próprias credenciais (sem a necessidade de um usuário final). Esse fluxo é ideal para comunicação entre servidores ou para acesso a APIs que não exigem interação do usuário.
+
+**Endpoint:** `/oauth/token`  
+**Método:** `POST`  
+
+#### Parâmetros:
+- `grant_type`: client_credentials
+- `client_id`: O ID do cliente registrado no servidor de autorização.
+- `client_secret`: O segredo do cliente.
+
+#### Exemplo de requisição (Postman):
+```bash
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+client_id=faturamento
+client_secret=faturamento123
+```
+
+#### Resposta:
+Um token JWT que pode ser usado para acessar recursos protegidos.
 
 # Autor
 <b>Thallyta Macedo Carvalho de Castro</b>
