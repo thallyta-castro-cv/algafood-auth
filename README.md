@@ -115,7 +115,7 @@ client_secret=web123
 Um novo token JWT válido por um período de tempo.
 
 ### 3. Client Credentials Flow
-
+![Client Credentials](./client_credentials.png)
 O Client Credentials Flow permite que o cliente obtenha um token de acesso usando suas próprias credenciais (sem a necessidade de um usuário final). Esse fluxo é ideal para comunicação entre servidores ou para acesso a APIs que não exigem interação do usuário.
 
 **Endpoint:** `/oauth/token`  
