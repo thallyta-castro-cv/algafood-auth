@@ -141,7 +141,7 @@ client_secret=faturamento123
 Um token JWT que pode ser usado para acessar recursos protegidos.
 
 ### 4. Authorization Code Grant Type
-![Authorization Code](./client_credentials.png)
+![Authorization Code](./authorization_code.png)
 
 O Authorization Code Grant Type é utilizado para obter um token de acesso através de um código de autorização. Esse fluxo é geralmente usado por aplicações web que podem armazenar um cliente secreto de maneira segura.
 
