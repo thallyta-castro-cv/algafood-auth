@@ -140,6 +140,61 @@ client_secret=faturamento123
 #### Resposta:
 Um token JWT que pode ser usado para acessar recursos protegidos.
 
+### 4. Authorization Code Grant Type
+![Authorization Code](./client_credentials.png)
+
+O Authorization Code Grant Type é utilizado para obter um token de acesso através de um código de autorização. Esse fluxo é geralmente usado por aplicações web que podem armazenar um cliente secreto de maneira segura.
+
+#### Passos
+
+1. O usuário é redirecionado para a página de login do servidor de autorização.
+2. O usuário se autentica e dá permissão ao cliente.
+3. O servidor de autorização redireciona o usuário de volta para a aplicação cliente, com um **código de autorização** na URL.
+4. A aplicação cliente troca o código de autorização por um **token de acesso**.
+
+#### 1. Solicitação do Código de Autorização
+
+O primeiro passo é redirecionar o usuário para o servidor de autorização. A URL da solicitação terá a seguinte estrutura:
+
+`GET /oauth/authorize`
+
+**Parâmetros:**
+- `response_type`: `code`
+- `client_id`: O ID do cliente registrado no servidor de autorização.
+- `redirect_uri`: O URI para onde o usuário será redirecionado após a autorização.
+- `state`: Um valor opcional para prevenir ataques de falsificação de solicitação entre sites (CSRF).
+
+**Exemplo de URL:**
+```
+http://localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://aplicacao-cliente&state=abc
+```
+
+#### 2. Troca do Código de Autorização por um Token de Acesso
+
+Após o usuário autorizar o acesso, ele será redirecionado para o URI especificado com um parâmetro `code`. Agora, o cliente precisa enviar uma solicitação `POST` para trocar o código de autorização por um token de acesso.
+
+**Endpoint:** `/oauth/token`  
+**Método:** `POST`
+
+**Parâmetros:**
+- `grant_type`: `authorization_code`
+- `code`: O código de autorização que foi retornado no redirecionamento.
+- `redirect_uri`: O mesmo `redirect_uri` usado na solicitação do código de autorização.
+- `client_id`: O ID do cliente.
+- `client_secret`: O segredo do cliente.
+
+**Exemplo de requisição (Postman):**
+```
+POST /oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code
+code=<seu_codigo_de_autorizacao>
+redirect_uri=[https://seu-app.com/callback](http://aplicacao-cliente)
+client_id=foodanalytics
+client_secret=food123
+```
+
 # Autor
 <b>Thallyta Macedo Carvalho de Castro</b>
 
