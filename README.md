@@ -195,6 +195,59 @@ client_id=foodanalytics
 client_secret=food123
 ```
 
+### 5. Implicit Grant Type
+
+O **Implicit Grant Type** é utilizado principalmente por aplicações de front-end, como aplicações web em JavaScript ou aplicativos móveis, onde o cliente não pode manter um segredo com segurança. Esse fluxo fornece diretamente um token de acesso sem a necessidade de trocar um código de autorização.
+
+#### Passos
+
+1. O cliente redireciona o usuário para o servidor de autorização.
+2. O usuário se autentica e autoriza o cliente.
+3. O servidor de autorização redireciona o usuário de volta para o cliente, fornecendo diretamente o **token de acesso** na URL de redirecionamento.
+
+#### 1. Solicitação do Token de Acesso
+
+Para iniciar o fluxo, o cliente redireciona o usuário para o servidor de autorização com a seguinte URL:
+
+`GET /oauth/authorize`
+
+Parâmetros:
+- `response_type`: `token`
+- `client_id`: O ID do cliente registrado no servidor de autorização.
+- `redirect_uri`: O URI para onde o usuário será redirecionado após a autorização.
+- `scope`: Os escopos que o cliente está solicitando.
+- `state`: Um valor opcional para prevenir ataques de falsificação de solicitação entre sites (CSRF).
+
+Exemplo de URL:
+
+`http://localhost:8081/oauth/authorize?response_type=token&client_id=webadmin&redirect_uri=http://aplicacao_cliente&scope=read%20write&state=abc123`
+
+#### 2. Recebendo o Token de Acesso
+
+Após o usuário autorizar o acesso, o servidor de autorização redireciona o usuário de volta ao `redirect_uri` com o token de acesso incluído no fragmento da URL.
+
+Exemplo de URL de redirecionamento:
+
+`http://aplicacao_cliente/#access_token=O9oWwomIWTg2EK1QRC95Mtj_gr4&token_type=bearer&state=abc123&expires_in=43199`
+
+
+O fragmento da URL conterá o seguinte:
+- `access_token`: O token JWT que pode ser usado para acessar recursos protegidos.
+- `token_type`: O tipo de token, geralmente "bearer".
+- `expires_in`: O tempo em segundos até o token expirar.
+- `scope`: Os escopos autorizados.
+
+#### 3. Utilizando o Token de Acesso
+
+Agora, o cliente pode usar o token de acesso para fazer requisições a recursos protegidos da API, adicionando o token no cabeçalho `Authorization`.
+
+Exemplo de requisição (Postman):
+
+```bash
+GET /kitchens
+Authorization: Bearer <seu_access_token>
+```
+
 # Autor
 <b>Thallyta Macedo Carvalho de Castro</b>
 
