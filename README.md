@@ -196,6 +196,7 @@ client_secret=food123
 ```
 
 ### 5. Implicit Grant Type
+![Implicit Grant Type](./implicit_grant_type.png)
 
 O **Implicit Grant Type** é utilizado principalmente por aplicações de front-end, como aplicações web em JavaScript ou aplicativos móveis, onde o cliente não pode manter um segredo com segurança. Esse fluxo fornece diretamente um token de acesso sem a necessidade de trocar um código de autorização.
 
