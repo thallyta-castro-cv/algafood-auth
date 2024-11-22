@@ -1,4 +1,4 @@
-package com.thallyta.algafoodauth;
+package com.thallyta.algafoodauth.core.security;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
